@@ -7,7 +7,7 @@ import { AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrig
 
 export default function Logout() {
    async function onLogout() {
-      await signOut();
+      await signOut({ redirect: true });
       toast({ title: "User logged out successfully" });
    }
 

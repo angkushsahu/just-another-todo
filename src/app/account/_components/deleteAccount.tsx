@@ -9,7 +9,7 @@ import { api } from "@/trpc/react";
 export default function DeleteAccount() {
    const { mutate: deleteAccount, isLoading } = api.user.deleteAccount.useMutation({
       async onSuccess(data) {
-         await signOut();
+         await signOut({ redirect: true });
          toast({ title: data.message });
       },
       onError(error) {
