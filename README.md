@@ -1,6 +1,6 @@
 # Just Another Todo
 
-As the name suggests, its just another todo application with an advanced searching functionality that's it. Trying to find out how good the T3 tech stack is.
+As the name suggests, its just another todo application with an advanced searching functionality that's it. I am creating this todo to see how good the T3 stack actually is.
 
 <!-- TODO: Add a visiting link here if hosted later on -->
 
