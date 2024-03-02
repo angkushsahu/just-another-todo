@@ -1,9 +1,14 @@
+import { RedirectType, redirect } from "next/navigation";
 import Link from "next/link";
 
+import { loginUrl, registerUrl, todoUrl } from "@/constants";
+import { getServerAuthSession } from "@/server/auth";
 import { Button } from "@/components";
-import { loginUrl, registerUrl } from "@/constants";
 
-export default function HomePage() {
+export default async function HomePage() {
+   const session = await getServerAuthSession();
+   if (session?.user) redirect(todoUrl, RedirectType.replace);
+
    return (
       <main className="container flex min-h-page flex-col justify-center md:items-center md:text-center">
          <h1 className="text-4xl font-semibold">Effortless Task Management Solution</h1>

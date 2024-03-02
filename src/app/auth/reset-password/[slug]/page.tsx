@@ -1,13 +1,19 @@
+import { RedirectType, redirect } from "next/navigation";
 import type { Metadata } from "next";
 
-import { parseSlug } from "@/lib";
+import { getServerAuthSession } from "@/server/auth";
 import ResetPasswordForm from "./form";
+import { todoUrl } from "@/constants";
+import { parseSlug } from "@/lib";
 
 export const metadata: Metadata = {
    title: "Reset Password",
 };
 
-export default function ResetPasswordPage({ params }: { params: unknown }) {
+export default async function ResetPasswordPage({ params }: { params: unknown }) {
+   const session = await getServerAuthSession();
+   if (session?.user) redirect(todoUrl, RedirectType.replace);
+
    const slug = parseSlug(params);
 
    return (

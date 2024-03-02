@@ -4,13 +4,12 @@ import { signOut } from "next-auth/react";
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription } from "@/components";
 import { AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Button, toast } from "@/components";
-import { registerUrl } from "@/constants";
 import { api } from "@/trpc/react";
 
 export default function DeleteAccount() {
    const { mutate: deleteAccount, isLoading } = api.user.deleteAccount.useMutation({
       async onSuccess(data) {
-         await signOut({ callbackUrl: registerUrl });
+         await signOut();
          toast({ title: data.message });
       },
       onError(error) {

@@ -4,11 +4,10 @@ import { signOut } from "next-auth/react";
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription } from "@/components";
 import { AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Button, toast } from "@/components";
-import { loginUrl } from "@/constants";
 
 export default function Logout() {
    async function onLogout() {
-      await signOut({ callbackUrl: loginUrl });
+      await signOut();
       toast({ title: "User logged out successfully" });
    }
 

@@ -1,18 +1,22 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSearchParams } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
-import { signIn } from "next-auth/react";
-import Link from "next/link";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import Link from "next/link";
 
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, toast } from "@/components";
 import { forgotPasswordUrl, registerUrl, todoUrl } from "@/constants";
-import { api } from "@/trpc/react";
 import { type LoginType, loginSchema } from "@/validation";
+import { api } from "@/trpc/react";
 
 export default function LoginForm() {
+   const searchParams = useSearchParams();
+   const callbackUrl = searchParams.get("callbackUrl");
+
    const [showPassword, setShowPassword] = useState(false);
 
    const loginForm = useForm<LoginType>({
@@ -22,7 +26,7 @@ export default function LoginForm() {
 
    const { mutate: loginUser, isLoading } = api.auth.login.useMutation({
       async onSuccess(data) {
-         await signIn("credentials", { userId: data.user.id, callbackUrl: todoUrl });
+         await signIn("credentials", { userId: data.user.id, callbackUrl: callbackUrl ?? todoUrl });
          toast({ title: data.message });
          loginForm.reset();
       },

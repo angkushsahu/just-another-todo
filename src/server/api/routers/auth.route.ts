@@ -13,7 +13,7 @@ export const authRouter = createTRPCRouter({
          const userAlreadyExists = await User.findOne({ email: input.email });
          if (userAlreadyExists) throw new TRPCError({ code: "CONFLICT", message: "E-mail already exists, login instead" });
 
-         const { confirmPassword, ...inputValues } = input;
+         const { confirmPassword: _, ...inputValues } = input;
          const newUser = await User.create(inputValues);
          if (!newUser) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Unable to create user" });
 
